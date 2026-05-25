@@ -24,5 +24,5 @@ COPY --from=build /app/target/tracker-0.0.1-SNAPSHOT.jar app.jar
 # Expose backend port
 EXPOSE 8080
 
-# Run with the production profile active
-ENTRYPOINT ["java", "-Dspring.profiles.active=prod", "-jar", "app.jar"]
+# Run with production profile active and optimized memory settings for 512MB RAM containers
+ENTRYPOINT ["java", "-XX:+UseSerialGC", "-Xss256k", "-XX:MaxRAMPercentage=75.0", "-Dspring.profiles.active=prod", "-jar", "app.jar"]
